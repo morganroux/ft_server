@@ -35,27 +35,27 @@ server {
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
-	index index.html index.php index.htm index.nginx-debian.html;
+	index index.html index.php index.htm ; #index.nginx-debian.html;
+
+	#Set autoindex
+	autoindex on;
 
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
-		autoindex on;
 	}
 
 	location /wordpress {
         # This is cool because no php is touched for static content.
         # include the "?$args" part so non-default permalinks doesn't break when using query string
-        try_files $uri $uri/ /index.php?$args;
-		autoindex on;
+        try_files $uri $uri/ /index.php?$args;	
 	}
 	
 	location /phpmyadmin {
         # This is cool because no php is touched for static content.
         # include the "?$args" part so non-default permalinks doesn't break when using query string
-        try_files $uri $uri/ /index.php?$args;
-		autoindex on;
+        try_files $uri $uri/ /index.php?$args;	
 	}
 
 	# pass PHP scripts to FastCGI server

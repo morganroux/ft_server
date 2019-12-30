@@ -16,22 +16,10 @@ RUN apt-get clean -y
 COPY srcs/wordpress /var/www/html/wordpress
 RUN chown -R www-data:www-data /var/www/html/wordpress && chmod -R 755 /var/www/html/wordpress
 # install phpmyadmin
-RUN cd /var/www/html \
-	&& wget https://files.phpmyadmin.net/phpMyAdmin/4.9.2/phpMyAdmin-4.9.2-all-languages.tar.gz \
-	&& tar -xvf phpMyAdmin-4.9.2-all-languages.tar.gz \
-	&& mv phpMyAdmin-4.9.2-all-languages phpmyadmin \
-	&& rm phpMyAdmin-4.9.2-all-languages.tar.gz
-#VOLUME /var/www/html
-# configure ssl
-#RUN apt-get install openssl -yq
-#COPY srcs/localhost.conf /etc/localhost.conf
-#RUN cd /etc/ \
-#	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -config localhost.conf \
-#	&& cp /etc/localhost.crt /etc/ssl/certs/localhost.crt \
-#	&& cp /etc/localhost.key /etc/ssl/private/localhost.key
+COPY srcs/phpmyadmin /var/www/html/phpmyadmin
+RUN chown -R www-data:www-data /var/www/html/phpmyadmin && chmod -R 755 /var/www/html/phpmyadmin
 COPY srcs/localhost.crt /etc/ssl/certs/localhost.crt 
 COPY srcs/localhost.key /etc/ssl/private/localhost.key
-
 # configure nginx
 COPY srcs/default /etc/nginx/sites-available/default
 # run server

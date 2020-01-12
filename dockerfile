@@ -28,4 +28,4 @@ EXPOSE 443
 COPY srcs/entrypoint.sh /etc/entrypoint.sh
 COPY srcs/config.sql /etc/config.sql
 RUN chmod +x /etc/entrypoint.sh
-ENTRYPOINT ["/etc/entrypoint.sh"]
+CMD bash /etc/entrypoint.sh
